@@ -2,7 +2,7 @@ local completion = {
     buf = vim.api.nvim_create_buf(false, true),
     win = {
         id = nil,
-        opts = nil,  -- set later in setup
+        opts = nil, -- set later in setup
     },
     items = {
         lsp = {},
@@ -17,7 +17,7 @@ local doc = {
     buf = vim.api.nvim_create_buf(false, true),
     win = {
         id = nil,
-        opts = nil,  -- set later in setup
+        opts = nil, -- set later in setup
     },
 }
 
@@ -863,7 +863,7 @@ function M._set_doc_opts(row, col, width, height)
         width = width,
         height = height,
         style = 'minimal',
-        border = 'rounded',
+        border = M.opts.window.style.border,
     }
 end
 
@@ -893,4 +893,3 @@ function M.doc_win_hide()
 end
 
 return M
-
