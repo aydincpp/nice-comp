@@ -1,3 +1,26 @@
+local completion = {
+    buf = vim.api.nvim_create_buf(false, true),
+    win = {
+        id = nil,
+        opts = nil,  -- set later in setup
+    },
+    items = {
+        lsp = {},
+        buffer = {},  -- placeholder
+        snippet = {}, -- placeholder
+    },
+    selected_item = nil,
+    cached_lines = {}
+}
+
+local doc = {
+    buf = vim.api.nvim_create_buf(false, true),
+    win = {
+        id = nil,
+        opts = nil,  -- set later in setup
+    },
+}
+
 local M = {}
 -- Default opts
 local default_opts = {
@@ -137,6 +160,31 @@ end
 ---@return nil
 M.setup = function(user_opts)
     M.opts = vim.tbl_deep_extend('force', default_opts, user_opts or {})
+
+    -- Initialize completion window opts
+    completion.win.opts = {
+        relative = 'cursor',
+        style    = 'minimal',
+        border   = M.opts.window.style.border,
+        width    = M.opts.window.style.width,
+        height   = M.opts.window.style.height,
+        col      = 0,
+        row      = 1,
+    }
+
+    -- Initialize doc window opts
+    doc.win.opts = {
+        relative  = 'editor',
+        style     = 'minimal',
+        border    = M.opts.window.style.border,
+        width     = M.opts.window.style.width,
+        height    = M.opts.window.style.height,
+        focusable = true,
+        mouse     = true,
+        col       = 0,
+        row       = 1,
+    }
+
     M.apply_mappings()
 
     ---User command to control the NiceComp completion plugin.
@@ -183,41 +231,6 @@ M.setup = function(user_opts)
         end,
     })
 end
-
--- Completion state and window data
----@class CompletionState
----@field buf number Buffer used for the floating completion window
----@field win table Window information
----@field win.id number|nil Window ID
----@field win.opts table Window options (relative, style, border, width, height, col, row)
----@field items table Tables of completion items by source
----@field items.lsp table LSP completion items
----@field items.buffer table Buffer completion items
----@field items.snippet table Snippet completion items
----@field selected_item number|nil Currently selected item index
----@field cached_lines table Cached formatted lines for display
-local completion = {
-    buf = vim.api.nvim_create_buf(false, true),
-    win = {
-        id = nil,
-        opts = {
-            relative = 'cursor',
-            style = 'minimal',
-            border = M.opts.window.style.border or "rounded",
-            width = M.opts.window.style.width or 40,
-            height = M.opts.window.style.height or 30,
-            col = 0,
-            row = 1,
-        },
-    },
-    items = {
-        lsp = {},
-        buffer = {},  -- NOTE: placeholder for future buffer magic (not today)
-        snippet = {}, -- NOTE: snippet engine? lol maybe never
-    },
-    selected_item = nil,
-    cached_lines = {}
-}
 
 ---Get the current completion window ID.
 ---@return number|nil id Window ID of the completion popup, or nil if not open
@@ -733,24 +746,6 @@ function M.completion_win_cursor_move()
     end
 end
 
-local doc = {
-    buf = vim.api.nvim_create_buf(false, true),
-    win = {
-        id = nil,
-        opts = {
-            relative = 'cursor',
-            style = 'minimal',
-            border = M.opts.window.style.border or "rounded",
-            width = M.opts.window.style.width or 40,
-            height = M.opts.window.style.height or 30,
-            focusable = true,
-            mouse = true,
-            col = 0,
-            row = 1,
-        },
-    },
-}
-
 ---Check if the doc window is open
 ---@return boolean True if the doc window is open, false otherwise
 function M.doc_win_is_open()
@@ -898,3 +893,4 @@ function M.doc_win_hide()
 end
 
 return M
+
