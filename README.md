@@ -36,5 +36,5 @@ Use your favorite plugin manager:
 use 'aydincpp/nice-comp'
 
 -- Lazy.nvim
-{ 'aydincpp/nicecomp' }
+{ 'aydincpp/nice-comp' }
 ```
