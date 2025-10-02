@@ -38,3 +38,101 @@ use 'aydincpp/nicecomp'
 -- Lazy.nvim
 { 'aydincpp/nicecomp' }
 ```
+
+### Keymaps
+
+NiceComp comes with some pre-configured keymaps.  
+**Seriously, do not touch them.**  
+
+Default keymaps:
+
+| Action        | Mode | Key        |
+|---------------|------|------------|
+| Show Window   | i    | `<C-Space>`|
+| Confirm Item  | i    | `<C-y>`    |
+| Next Item     | i    | `<C-n>`    |
+| Previous Item | i    | `<C-p>`    |
+| Show Doc      | i    | `<C-Space>`|
+
+> Recommended: leave them as is and live a happy life.
+
+## Default Config Example
+
+For those brave enough to configure NiceComp, here’s a starter template.  
+Remember: width and height are sacred and chosen by me. Don’t complain.  
+
+```lua
+return {
+    "aydincpp/nicecomp",
+    config = function()
+        require("nicecomp").setup({
+            formatting = {
+                kind_icons = {
+                    [1]  = '󰦨', -- Text
+                    [2]  = '', -- Method
+                    [3]  = '󰊕', -- Function
+                    [4]  = '', -- Constructor
+                    [5]  = '', -- Field
+                    [6]  = '', -- Variable
+                    [7]  = '', -- Class
+                    [8]  = '', -- Interface
+                    [9]  = '', -- Module
+                    [10] = '', -- Property
+                    [11] = '', -- Unit
+                    [12] = '', -- Value
+                    [13] = '', -- Enum
+                    [14] = '', -- Keyword
+                    [15] = '', -- Snippet
+                    [16] = '', -- Color
+                    [17] = '', -- File
+                    [18] = '', -- Reference
+                    [19] = '', -- Folder
+                    [20] = '', -- EnumMember
+                    [21] = '', -- Constant
+                    [22] = '', -- Struct
+                    [23] = '󰐰', -- Event
+                    [24] = '', -- Operator
+                    [25] = '', -- TypeParameter
+                },
+                selected_item_prefix = '>>>>', -- LOOK AT THIS, YOUR ITEM IS VIP NOW
+            },
+            window = {
+                style = {
+                    width = 40,         -- width? lol I decide, not you
+                    height = 10,        -- height? your opinion does not matter
+                    border = 'rounded', -- this one you can touch, try not to break it
+                },
+            },
+            mapping = {
+                show_win = {
+                    mode = 'i',
+                    lhs = '<C-Space>',
+                    rhs = 'NiceComp show',
+                },
+                confirm_item = {
+                    mode = 'i',
+                    lhs = '<C-y>',
+                    rhs = 'NiceComp confirm', -- doesn’t really work, you’ve been warned
+                },
+                next_item = {
+                    mode = 'i',
+                    lhs = '<C-n>',
+                    rhs = 'NiceComp next',
+                },
+                prev_item = {
+                    mode = 'i',
+                    lhs = '<C-p>',
+                    rhs = 'NiceComp prev',
+                },
+                show_doc = {
+                    mode = 'i',
+                    lhs  = '<C-Space>',
+                    rhs  = 'NiceComp doc',
+                }
+            },
+        })
+    end
+}
+```
+
+
