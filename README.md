@@ -94,7 +94,8 @@ return {
                     [24] = '', -- Operator
                     [25] = '', -- TypeParameter
                 },
-                selected_item_prefix = '>>>>', -- LOOK AT THIS, YOUR ITEM IS VIP NOW
+                selected_item_prefix = '',
+
             },
             window = {
                 style = {
