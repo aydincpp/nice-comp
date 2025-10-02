@@ -33,8 +33,8 @@ Use your favorite plugin manager:
 
 ```lua
 -- Packer
-use 'aydincpp/nice-comp'
+use 'aydincpp/nicecomp'
 
 -- Lazy.nvim
-{ 'aydincpp/nice-comp' }
+{ 'aydincpp/nicecomp' }
 ```
